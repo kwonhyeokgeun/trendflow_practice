@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Slf4j
 @RestController
@@ -18,20 +20,21 @@ import java.time.LocalDate;
 public class SourceController {
 
     private final SourceService sourceService;
-    /*@GetMapping("")
-    public ResponseEntity<Object> findAllByKeyword(@RequestParam String title,
+    @GetMapping("")
+    public ResponseEntity<Object> findAllByKeyword(@RequestParam String keyword,
                                                    @RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                                    @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
-        log.info("findRecommend - Call");
+        log.info("findAllByKeyword - Call");
         try {
-            endDate = endDate.plusDays(1);
-
+            LocalDateTime startDateTime = startDate.atStartOfDay();
+            LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
+            sourceService.findAllByKeyword(keyword, startDateTime, endDateTime);
             return ResponseEntity.ok().body(null);
         } catch (RuntimeException e) {
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().body(null);
         }
-    }*/
+    }
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody AddReqDto addReqDto){

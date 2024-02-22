@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface KeywordRepository extends JpaRepository<Keyword,Long> {
-    List<Keyword> findAllByKeywordAndRegDtBetween(String keyword, LocalDateTime startDate, LocalDateTime endDate);
+    List<Keyword> findAllByKeywordAndRegDtBetweenOrderByImportanceDesc(String keyword, LocalDateTime startDate, LocalDateTime endDate);
     List<Keyword> findAllByKeyword(String keyword);
 }

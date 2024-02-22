@@ -1,5 +1,7 @@
 package com.trend.keyword.keyword.controller;
 
+import com.trend.keyword.keyword.dto.request.FindAllByKeywordReq;
+import com.trend.keyword.keyword.dto.response.FindAllByKeywordRes;
 import com.trend.keyword.keyword.service.KeywordService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -29,16 +32,17 @@ public class KeywordController {
     public ResponseEntity<Object> findAllByKeyword(@RequestParam String keyword,
                                                @RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                                @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate){
-        log.info("findRecommend - Call");
-        System.out.println(keyword + " "+startDate);
+        log.info("findAllByKeyword - Call");
+
         try {
-            LocalDateTime startDataTime = startDate.atStartOfDay();
+            LocalDateTime startDateTime = startDate.atStartOfDay();
             LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
-            keywordService.findAllByKeyword(keyword,startDataTime,endDateTime);
-            return ResponseEntity.ok().body(null);
+            List<FindAllByKeywordRes> ret = keywordService.findAllByKeyword(keyword,startDateTime,endDateTime);
+            return ResponseEntity.ok().body(ret);
         } catch (RuntimeException e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().body(null);
         }
     }
+
 }

@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +16,7 @@ public class FindAllByKeywordRes {
     Long sourceId;
     String keyword;
     int count;
-    LocalDate regDt;
+    int importance;
+    LocalDateTime regDt;
 
 }
