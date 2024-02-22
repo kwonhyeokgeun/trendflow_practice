@@ -1,10 +1,8 @@
 package com.trend.keyword.keyword.entity;
 
+import com.trend.keyword.source.entity.Source;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -12,7 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -23,9 +22,13 @@ public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long keywordId;
-    private Long sourceId;
+    //private Long sourceId;
     private String keyword;
     private int count;
     private int importance;
     private LocalDateTime regDt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "source_id")
+    private Source source;
 }

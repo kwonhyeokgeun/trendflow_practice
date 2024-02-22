@@ -22,7 +22,7 @@ public class KeywordService {
         for(Keyword keyword1 : keywordList){
             findAllByKeywordResList.add(
                 FindAllByKeywordRes.builder()
-                    .sourceId(keyword1.getSourceId())
+                    .sourceId(keyword1.getSource().getSourceId())
                     .keyword(keyword1.getKeyword())
                     .count(keyword1.getCount())
                     .importance(keyword1.getImportance())
